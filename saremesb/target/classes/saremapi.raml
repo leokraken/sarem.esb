@@ -1,0 +1,36 @@
+#%RAML 0.8
+---
+title: Sarem API
+version: 1.0
+baseUri: http://localhost:8080/api
+documentation:
+  - title: Getting Started
+    content: |
+      This sample API has been created as part of your APIkit project. It is located in src/main/api. Feel free to poke around.
+/personas:
+  displayName: personas
+  #description: obtiene las personas de una institución específica
+  get: 
+    description: |
+      obtiene todas las personas del sistema  
+    body: 
+      application/json: 
+        schema: !include schemas/person-input.json
+  
+  /{paisID}/{personID}:
+    uriParameters: 
+      personID:
+          description: Identificador de la persona
+          type: string
+          required: true
+          example: 50548305
+      paisID:
+          description: Identificador del país al cual pertenece el paciente
+          type: string
+          example: UY
+    get: 
+      responses: 
+        200:
+          body: 
+            application/xml: 
+            
