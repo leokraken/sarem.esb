@@ -9,12 +9,14 @@
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/Nationality.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/NameType.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/StringList.java
+/home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/saremesb/customstrategy/personasAggregationStrategy.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/AuthenticationRequest.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/PersonPagedRequest.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/saremesb/transformers/transformPersonIdentifier.java
+/home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/saremesb/datatypes/DataPersonResult.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/AddressType.java
-/home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/Gender.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/Religion.java
+/home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/Gender.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/ObjectFactory.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/ReviewRecordPair.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/BaseObject.java

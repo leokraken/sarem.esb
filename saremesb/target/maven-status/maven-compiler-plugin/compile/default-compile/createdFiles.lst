@@ -13,7 +13,9 @@ generated/PersonLink.class
 generated/EthnicGroup.class
 generated/User.class
 saremesb/datatypes/DataPerson.class
+saremesb/datatypes/DataPersonResult.class
 generated/ObjectFactory.class
+saremesb/customstrategy/personasAggregationStrategy.class
 generated/AuthenticationRequest.class
 generated/Nationality.class
 saremesb/ws/saremREST.class
