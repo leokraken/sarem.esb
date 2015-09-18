@@ -29,8 +29,20 @@ documentation:
           type: string
           example: UY
     get: 
+      description: obtiene persona dado el país de origen y documento de identidad.
       responses: 
         200:
           body: 
             application/xml: 
-            
+/mail: 
+  displayName: mail
+  description: Envia email al usuario vía CI con el mensaje especificado
+  post: 
+    body: 
+      application/json: 
+        schema: !include schemas/mensaje.json
+    responses: 
+      200:
+        body: 
+          application/json: 
+  

@@ -1,7 +1,7 @@
+/home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/saremesb/datatypes/DataPersonUpdate.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/PhoneType.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/Race.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/MergePersonsRequest.java
-/home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/saremesb/ws/saremREST.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/Language.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/EthnicGroup.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/User.java
@@ -22,11 +22,11 @@
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/BaseObject.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/Address.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/IdentifierDomainAttributeRequest.java
-/home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/saremesb/datatypes/DataPerson.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/IdentifierDomainAttribute.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/PersonIdentifier.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/IdentifierUpdateEvent.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/PersonLink.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/Person.java
+/home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/saremesb/transformers/updatePersonTransformer.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/IdentifierDomain.java
 /home/leonardo/AnypointStudio/workspace/saremesb/src/main/java/generated/IdentifierUpdateEntry.java

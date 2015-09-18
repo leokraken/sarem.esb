@@ -1,15 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/apikit/current/mule-apikit.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
-http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd" version="EE-3.7.0">
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd" version="EE-3.7.0">
     <http:listener-config name="saremapi-httpListenerConfig" host="0.0.0.0" port="8080" doc:name="HTTP Listener Configuration" />
     <apikit:config name="saremapi-config" raml="saremapi.raml" consoleEnabled="true" consolePath="console" doc:name="Router" />
     <http:request-config name="HTTP_Request_Configuration" host="localhost" port="8081" doc:name="HTTP Request Configuration" />
-    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8082" doc:name="HTTP Listener Configuration"/>
+    <http:listener-config name="HTTP_Proxy" host="0.0.0.0" port="8082" doc:name="HTTP Listener Configuration"/>
+    <http:listener-config name="HTTP_QueueListener" host="0.0.0.0" port="8083" doc:name="HTTP Listener Configuration"/>
+    <db:generic-config name="Generic_Database_Configuration" url="jdbc:sqlserver://qln8u7yf2c.database.windows.net:1433;database=testing;user=chebaydb@qln8u7yf2c;password=#!Chebay;encrypt=true;hostNameInCertificate=*.database.windows.net;loginTimeout=30;" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" doc:name="Generic Database Configuration"/>
+    <flow name="proxyOpenEMPI">
+        <http:listener config-ref="HTTP_Proxy" path="/" doc:name="HTTP"/>
+        <http:request config-ref="HTTP_Request_Configuration" path="/openempi-webapp-web-2.2.9/openempi-ws-rest/person-query-resource/findPersonById" method="POST" parseResponse="false" doc:name="proxy">
+            <http:request-builder>
+                <http:header headerName="OPENEMPI_SESSION_KEY" value="#[flowVars.openempi]"/>
+            </http:request-builder>
+        </http:request>
+    </flow>
+    <sub-flow name="post:/mail:saremapi-config">
+        <logger message="MENSAJE:::#[payload]" level="INFO" doc:name="Logger"/>
+    </sub-flow>
+    <sub-flow name="sqlserver">
+        <db:select config-ref="Generic_Database_Configuration" doc:name="Database">
+            <db:parameterized-query><![CDATA[select * from test.EventoPacienteComunicacion epc join test.Comunicaciones c on c.ID=epc.ComunicacionID where epc.PacienteID='50548305';
+#[message.payload.]]]></db:parameterized-query>
+        </db:select>
+        <logger message="#[payload]" level="INFO" doc:name="Logger"/>
+        <choice doc:name="Choice">
+            <when expression="">
+                <smtp:outbound-endpoint host="localhost" responseTimeout="10000" doc:name="SMTP"/>
+            </when>
+        </choice>
+        <logger message="#[payload]" level="INFO" doc:name="Logger"/>
+    </sub-flow>
     <flow name="saremapi-main" initialState="started">
         <http:listener config-ref="saremapi-httpListenerConfig" path="/api/*" doc:name="HTTP" parseRequest="false"/>
         <apikit:router config-ref="saremapi-config" doc:name="APIkit Router" />
